@@ -8,7 +8,7 @@ uberjar_path := target/uberjar/solanum.jar
 
 # Graal settings
 GRAAL_ROOT ?= /tmp/graal
-GRAAL_VERSION ?= 22.3.1
+GRAAL_VERSION ?= 20.3.1
 GRAAL_HOME ?= $(GRAAL_ROOT)/graalvm-ce-java17-$(GRAAL_VERSION)
 graal_archive := graalvm-ce-java17-$(platform)-amd64-$(GRAAL_VERSION).tar.gz
 
