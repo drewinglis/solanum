@@ -87,6 +87,25 @@ SOLANUM_VERSION=$(grep defproject project.clj | cut -d ' ' -f 3 | tr -d \")
 msg "Building docker image $DOCKER_IMAGE_NAME at $SOLANUM_VERSION"
 docker build --build-arg GRAAL_STATIC=$GRAAL_STATIC -t $DOCKER_IMAGE_NAME:$SOLANUM_VERSION .
 
+make uberjar
+
+#WORKDIR /opt/solanum
+#
+## Prefetch project dependencies
+#COPY project.clj .
+#RUN lein deps
+#
+## Build uberjar
+#COPY . .
+#RUN ./script/uberjar
+#
+## Build native-image
+#ARG GRAAL_XMX="4500m"
+#ARG GRAAL_STATIC="false"
+#ENV GRAAL_XMX="$GRAAL_XMX"
+#ENV GRAAL_STATIC="$GRAAL_STATIC"
+#RUN ./script/compile
+
 DOCKER_CONTAINER_ID=$(docker create $DOCKER_IMAGE_NAME:$SOLANUM_VERSION)
 docker cp "${DOCKER_CONTAINER_ID}:/opt/solanum/solanum" "$SOLANUM_OUTPUT"
 
